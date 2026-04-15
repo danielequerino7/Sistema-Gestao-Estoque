@@ -13,10 +13,14 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Entities\Estoque.cs" />
+    <Compile Include="Entities\MovimentacaoEstoque.cs" />
+    <Compile Include="Entities\Produto.cs" />
+    <Compile Include="Entities\Setor.cs" />
+    <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
