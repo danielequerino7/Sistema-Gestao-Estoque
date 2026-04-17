@@ -69,7 +69,7 @@ namespace Application.Services
                 DataMovimentacao = DateTime.Now
             };
 
-            _movimentacaoRepository.Adicionar(movimentacao);
+            _movimentacaoRepository.AdicionarMovimentacao(movimentacao);
 
             return dto;
         }
