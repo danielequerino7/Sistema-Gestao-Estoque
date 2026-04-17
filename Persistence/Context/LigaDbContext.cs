@@ -23,6 +23,14 @@ namespace Persistence.Context
                 .HasKey(e => new { e.ProdutoId, e.SetorId });
 
             modelBuilder.Entity<Estoque>()
+                .Property(e => e.ProdutoId)
+                .HasColumnName("produto_id");
+
+            modelBuilder.Entity<Estoque>()
+                .Property(e => e.SetorId)
+                .HasColumnName("setor_id");
+
+            modelBuilder.Entity<Estoque>()
                 .HasRequired(e => e.Produto)
                 .WithMany(p => p.Estoques)
                 .HasForeignKey(e => e.ProdutoId);
@@ -55,6 +63,12 @@ namespace Persistence.Context
                 .WithMany()
                 .HasForeignKey(m => m.SetorDestinoId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Setor>().ToTable("Setores");
+            modelBuilder.Entity<Produto>().ToTable("Produtos");
+            modelBuilder.Entity<Usuario>().ToTable("Usuarios");
+            modelBuilder.Entity<Estoque>().ToTable("Estoque");
+            modelBuilder.Entity<MovimentacaoEstoque>().ToTable("MovimentacaoEstoque");
         }
     }
 

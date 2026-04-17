@@ -9,7 +9,6 @@ namespace Domain.Entities
         public string Cpf { get; set; }
         public string SenhaHash { get; set; }
         public bool Ativo { get; set; }
-
         public virtual ICollection<MovimentacaoEstoque> Movimentacoes { get; set; }
     }
 }

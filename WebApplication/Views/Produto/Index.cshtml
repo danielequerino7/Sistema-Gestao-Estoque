@@ -1,0 +1,74 @@
+﻿@model WebApplication.ViewModel.PaginacaoProdutoViewModel
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">     
+        <a href="/Home" class="btn btn-secondary">
+            ← Voltar
+        </a>
+        <h2>Produtos</h2>
+
+        <a href="/Produto/Criar" class="btn btn-success">
+            + Novo Produto
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>SKU</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.Produtos)
+                {
+                    <tr>
+                        <td>@item.Sku</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Preco</td>
+                        <td>@item.QuantidadeEmEstoque</td>
+                        <td>
+                            <a href="/Produto/Editar/@item.Id" class="btn btn-warning btn-sm">Editar</a>
+
+                         
+
+                            @using (Html.BeginForm("Excluir", "Produto", FormMethod.Post, new { style = "display:inline;", onsubmit = "return confirmarExclusao();" }))
+                            {
+                                @Html.Hidden("id", item.Id)
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    Excluir
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <nav>
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= Model.TotalPaginas; i++)
+            {
+                <li class="page-item @(i == Model.PaginaAtual ? "active" : "")">
+                    <a class="page-link" href="/Produto?page=@i">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+
+</div>
+
+<script>
+    function confirmarExclusao() {
+        return confirm("Tem certeza que deseja excluir este produto?");
+    }
+</script>

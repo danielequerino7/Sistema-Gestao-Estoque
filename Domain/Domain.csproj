@@ -18,10 +18,10 @@
     <Compile Include="Entities\Produto.cs" />
     <Compile Include="Entities\Setor.cs" />
     <Compile Include="Entities\Usuario.cs" />
+    <Compile Include="Interfaces\IEstoqueRepository.cs" />
+    <Compile Include="Interfaces\IProdutoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
