@@ -42,6 +42,7 @@ namespace WebApplication.Controllers
                     Session["Usuario"] = usuario;
                     Session["Nome"] = usuario.Nome;
                     Session["CPF"] = usuario.CPF;
+                    Session["Id"] = usuario.Id;
 
                     return RedirectToAction("Index", "Home");
                 }

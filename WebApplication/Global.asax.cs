@@ -32,9 +32,12 @@ namespace WebApplication
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Register<LigaDbContext>(Lifestyle.Scoped);
+            container.Register<ISetorService, SetorService>(Lifestyle.Scoped);
+            container.Register<ISetorRepository, SetorRepository>(Lifestyle.Scoped);
             container.Register<IProdutoRepository, ProdutoRepository>(Lifestyle.Scoped);
             container.Register<IEstoqueRepository, EstoqueRepository>(Lifestyle.Scoped);
-           // container.Register<IMovimentacaoRepository, MovimentacaoRepository>(Lifestyle.Scoped);
+            container.Register<IMovimentacaoService, MovimentacaoService>(Lifestyle.Scoped);
+            container.Register<IMovimentacaoRepository, MovimentacaoRepository>(Lifestyle.Scoped);
             container.Register<IProdutoService, ProdutoService>(Lifestyle.Scoped);
             container.Register<ILoginService, LoginService>(Lifestyle.Scoped);
             container.Register<ILoginRepository, LoginRepository>(Lifestyle.Scoped);

@@ -3,26 +3,19 @@ using System;
 using System.Web.Mvc;
 using Application.DTOs;
 using WebApplication.ViewModel;
-using Persistence.Context;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using System.Collections.Generic;
+using Domain.Entities;
 
 namespace WebApplication.Controllers
 {
     public class ProdutoController : BaseController
     {
-        private readonly LigaDbContext _context;
-
-        public ProdutoController()
-        {
-            _context = new LigaDbContext();
-        }
-
         [HttpPost]
         public ActionResult Criar(CriarProdutoViewModel vm)
-        {          
+        {
             try
             {
                 var dto = new ProdutoDTO
@@ -46,33 +39,30 @@ namespace WebApplication.Controllers
                     return RedirectToAction("Criar");
                 }
 
+                ErroApi(response);
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Erro ao criar produto: " + ex.Message);
             }
 
-            /*vm.Setores = _context.Setores
-                .Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.Nome
-                }).ToList();*/
-
+            vm.Setores = CarregarSetores();
             return View(vm);
         }
 
         public ActionResult Criar()
         {
-            var vm = new CriarProdutoViewModel
+            var vm = new CriarProdutoViewModel();
+
+            try
             {
-                Setores = _context.Setores
-                    .Select(s => new SelectListItem
-                    {
-                        Value = s.Id.ToString(),
-                        Text = s.Nome
-                    }).ToList()
-            };
+                vm.Setores = CarregarSetores();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Erro ao carregar dados: " + ex.Message);
+                vm.Setores = new List<SelectListItem>();
+            }
 
             return View(vm);
         }
@@ -91,12 +81,15 @@ namespace WebApplication.Controllers
                 {
                     var json = response.Content.ReadAsStringAsync().Result;
                     produtos = JsonConvert.DeserializeObject<IEnumerable<ProdutoDTO>>(json);
-                  //  return RedirectToAction("Index");
+                }
+                else
+                {
+                    ErroApi(response);
                 }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Erro ao criar produto: " + ex.Message);
+                ModelState.AddModelError("", "Erro ao listar produtos: " + ex.Message);
             }
 
             var totalItens = produtos.Count();
@@ -117,14 +110,12 @@ namespace WebApplication.Controllers
                     Preco = p.Preco,
                     QuantidadeEmEstoque = p.QuantidadeEmEstoque
                 }).ToList(),
-
                 PaginaAtual = page,
                 TotalPaginas = totalPaginas
             };
 
             return View(vm);
         }
-
 
         [HttpPost]
         public ActionResult Editar(EditarProdutoViewModel vm)
@@ -138,6 +129,7 @@ namespace WebApplication.Controllers
                     Preco = vm.Preco,
                     QuantidadeEmEstoque = vm.QuantidadeEmEstoque
                 };
+
                 var apiUrl = GetBaseUrl() + "produtos/" + vm.Id;
 
                 var json = JsonConvert.SerializeObject(dto);
@@ -147,9 +139,10 @@ namespace WebApplication.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Editar");
+                    return RedirectToAction("Index");
                 }
 
+                ErroApi(response);
             }
             catch (Exception ex)
             {
@@ -175,7 +168,7 @@ namespace WebApplication.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Erro ao buscar produto na API");
+                    ErroApi(response);
                 }
             }
             catch (Exception ex)
@@ -190,7 +183,7 @@ namespace WebApplication.Controllers
 
             var vm = new EditarProdutoViewModel
             {
-                //Id = produto.Id,
+                Id = produto.Id,
                 Sku = produto.Sku,
                 Nome = produto.Nome,
                 Descricao = produto.Descricao,
@@ -207,7 +200,6 @@ namespace WebApplication.Controllers
             try
             {
                 var apiUrl = GetBaseUrl() + "produtos/" + id;
-
                 var response = HttpClient.DeleteAsync(apiUrl).Result;
 
                 if (response.IsSuccessStatusCode)
@@ -215,14 +207,41 @@ namespace WebApplication.Controllers
                     return RedirectToAction("Index");
                 }
 
-                ModelState.AddModelError("", "Erro ao excluir produto");
+                ErroApi(response);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Erro: " + ex.Message);
+                ModelState.AddModelError("", "Erro ao excluir produto: " + ex.Message);
             }
 
             return RedirectToAction("Index");
+        }
+
+        private List<SelectListItem> CarregarSetores()
+        {
+            try
+            {
+                var apiUrl = GetBaseUrl() + "setores";
+                var response = HttpClient.GetAsync(apiUrl).Result;
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new List<SelectListItem>();
+                }
+
+                var json = response.Content.ReadAsStringAsync().Result;
+                var setores = JsonConvert.DeserializeObject<List<Setor>>(json);
+
+                return setores.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Nome
+                }).ToList();
+            }
+            catch
+            {
+                return new List<SelectListItem>();
+            }
         }
     }
 }

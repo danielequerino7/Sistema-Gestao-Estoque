@@ -7,6 +7,7 @@ namespace Domain.Interfaces
     {
         void Adicionar(Estoque estoque);
         Estoque ObterPorProdutoId(int id);
+        Estoque Obter(int produtoId, int setorId);
         void Atualizar(Estoque estoque);
         IEnumerable<Estoque> Listar();
     }

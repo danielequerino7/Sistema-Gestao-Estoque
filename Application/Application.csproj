@@ -14,6 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DTOs\LoginDTO.cs" />
+    <Compile Include="DTOs\MovimentacaoDTO.cs" />
     <Compile Include="DTOs\ProdutoDTO.cs" />
     <Compile Include="DTOs\UsuarioDTO.cs" />
     <Compile Include="Exceptions\RegraNegocioException.cs" />
@@ -22,9 +23,13 @@
     <Compile Include="Services\EstoqueService.cs" />
     <Compile Include="Services\Interfaces\IEstoqueService.cs" />
     <Compile Include="Services\Interfaces\ILoginService.cs" />
+    <Compile Include="Services\Interfaces\IMovimentacaoService.cs" />
     <Compile Include="Services\Interfaces\IProdutoService.cs" />
+    <Compile Include="Services\Interfaces\ISetorService.cs" />
     <Compile Include="Services\LoginService.cs" />
+    <Compile Include="Services\MovimentacaoService.cs" />
     <Compile Include="Services\ProdutoService.cs" />
+    <Compile Include="Services\SetorService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

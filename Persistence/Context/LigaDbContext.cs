@@ -68,6 +68,27 @@ namespace Persistence.Context
                 .HasForeignKey(m => m.SetorDestinoId)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<MovimentacaoEstoque>()
+               .Property(e => e.ProdutoId)
+               .HasColumnName("produto_id");
+
+            modelBuilder.Entity<MovimentacaoEstoque>()
+               .Property(e => e.UsuarioId)
+               .HasColumnName("usuario_id");
+
+            modelBuilder.Entity<MovimentacaoEstoque>()
+               .Property(e => e.SetorOrigemId)
+               .HasColumnName("setor_origem_id");
+
+            modelBuilder.Entity<MovimentacaoEstoque>()
+               .Property(e => e.SetorDestinoId)
+               .HasColumnName("setor_destino_id");
+
+            modelBuilder.Entity<MovimentacaoEstoque>()
+               .Property(e => e.DataMovimentacao)
+               .HasColumnName("data_movimentacao");
+
+
             modelBuilder.Entity<Setor>().ToTable("Setores");
             modelBuilder.Entity<Produto>().ToTable("Produtos");
             modelBuilder.Entity<Usuario>().ToTable("Usuarios");

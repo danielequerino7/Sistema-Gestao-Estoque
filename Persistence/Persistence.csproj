@@ -20,7 +20,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EstoqueRepository.cs" />
     <Compile Include="Repositories\LoginRepository.cs" />
+    <Compile Include="Repositories\MovimentacaoRepository.cs" />
     <Compile Include="Repositories\ProdutoRepository.cs" />
+    <Compile Include="Repositories\SetorRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

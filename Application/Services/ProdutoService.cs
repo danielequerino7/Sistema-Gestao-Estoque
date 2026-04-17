@@ -30,10 +30,10 @@ namespace Application.Services
         {
 
             if (dto.QuantidadeEmEstoque < 0)
-                throw new RegraNegocioException("Quantidade em estoque não pode ser negativa");
+                throw new Exception("Quantidade em estoque não pode ser negativa");
 
             if (dto.Preco < 0)
-                throw new RegraNegocioException("Preço não pode ser negativo");
+                throw new Exception("Preço não pode ser negativo");
 
             if (string.IsNullOrWhiteSpace(dto.Nome))
                 throw new RegraNegocioException("Nome do produto é obrigatório");
@@ -67,13 +67,13 @@ namespace Application.Services
         {
 
             if (dto.Preco < 0)
-                throw new RegraNegocioException("Preço não pode ser negativo");
+                throw new Exception("Preço não pode ser negativo");
 
             if (dto.QuantidadeEmEstoque < 0)
-                throw new RegraNegocioException("Quantidade não pode ser negativa");
+                throw new Exception("Quantidade não pode ser negativa");
 
             if (string.IsNullOrWhiteSpace(dto.Nome))
-                throw new RegraNegocioException("Nome é obrigatório");
+                throw new Exception("Nome é obrigatório");
 
             var produto = _produtoRepository.ObterPorId(id);
 

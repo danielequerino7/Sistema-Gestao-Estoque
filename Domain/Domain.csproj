@@ -20,7 +20,9 @@
     <Compile Include="Entities\Usuario.cs" />
     <Compile Include="Interfaces\IEstoqueRepository.cs" />
     <Compile Include="Interfaces\ILoginRepository.cs" />
+    <Compile Include="Interfaces\IMovimentacaoRepository.cs" />
     <Compile Include="Interfaces\IProdutoRepository.cs" />
+    <Compile Include="Interfaces\ISetorRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

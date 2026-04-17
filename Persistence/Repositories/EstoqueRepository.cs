@@ -3,6 +3,7 @@ using System.Linq;
 using Domain.Entities;
 using Domain.Interfaces;
 using Persistence.Context;
+using System.Data.Entity;
 
 namespace Persistence.Repositories
 {
@@ -35,6 +36,13 @@ namespace Persistence.Repositories
         {
             return _context.Estoques
                 .FirstOrDefault(p => p.ProdutoId == id);
+        }
+        public Estoque Obter(int produtoId, int setorId)
+        {
+            return _context.Estoques
+                .Include(e => e.Produto)
+                .Include(e => e.Setor)
+                .FirstOrDefault(e => e.ProdutoId == produtoId && e.SetorId == setorId);
         }
     }
 }
