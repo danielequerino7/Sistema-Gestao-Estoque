@@ -11,6 +11,7 @@ using WebApplication.App_Start;
 using SimpleInjector.Integration.WebApi;
 using AutoMapper;
 using Application.Mappings;
+using Application.Services.Interfaces;
 
 
 namespace WebApplication
@@ -35,6 +36,8 @@ namespace WebApplication
             container.Register<IEstoqueRepository, EstoqueRepository>(Lifestyle.Scoped);
            // container.Register<IMovimentacaoRepository, MovimentacaoRepository>(Lifestyle.Scoped);
             container.Register<IProdutoService, ProdutoService>(Lifestyle.Scoped);
+            container.Register<ILoginService, LoginService>(Lifestyle.Scoped);
+            container.Register<ILoginRepository, LoginRepository>(Lifestyle.Scoped);
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
             var config = new MapperConfiguration(cfg =>
             {

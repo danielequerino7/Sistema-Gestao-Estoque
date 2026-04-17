@@ -15,6 +15,8 @@ namespace Application.Mappings
                     opt => opt.MapFrom(src => src.Estoques.Sum(e => e.Quantidade)))
                 .ForMember(dest => dest.SetorId,
                     opt => opt.MapFrom(src => src.Estoques.Sum(e => e.SetorId)));
+
+            CreateMap<Usuario, UsuarioDTO>().ReverseMap();
         }
     }
 }

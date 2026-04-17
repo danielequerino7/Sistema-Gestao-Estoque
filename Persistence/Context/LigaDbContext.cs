@@ -19,6 +19,10 @@ namespace Persistence.Context
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Usuario>()
+               .Property(e => e.SenhaHash)
+               .HasColumnName("senha_hash");
+
             modelBuilder.Entity<Estoque>()
                 .HasKey(e => new { e.ProdutoId, e.SetorId });
 
