@@ -6,26 +6,26 @@ Sistema web para gerenciamento de usuários, produtos, setores, estoque e movime
 
 # 📋 Visão Geral
 
-O sistema permite o cadastro de usuários e produtos, controle de estoque por setor e registro de movimentações de entrada, consumo e transferência entre setores.
+O sistema permite o cadastro de produtos, controle de estoque por setor e registro de movimentações de entrada, consumo e transferência entre setores.
 
 Todas as movimentações ficam registradas para rastreabilidade.
 
 ## Principais Funcionalidades do Sistema
 
-| Módulo | Funcionalidades |
-|---|---|
-| **Controle de Estoque** | CRUD completo de produtos |
-| **Geração de Códigos Unitários (SKU):** | Geração e associação de um código SKU único a cada produto cadastrado. |
-| **Login:** | Implementação de login utilizando o CPF como identificador do usuário. |
-| **Entrada de Produtos:** | Funcionalidade para registrar a aquisição de novos produtos. |
-| **Consumo de Produtos** | Funcionalidade para registrar a baixa de produtos do estoque por consumo interno. |
-| **Envio de Produtos entre Setores:** | Funcionalidade para realizar a transferência de itens entre diferentes setores, debitando o estoque de um e creditando o estoque do outro. |
+| Módulo                                  | Funcionalidades                                                                                                                            |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Controle de Estoque**                 | CRUD completo de produtos                                                                                                                  |
+| **Geração de Códigos Unitários (SKU):** | Geração e associação de um código SKU único a cada produto cadastrado.                                                                     |
+| **Login:**                              | Implementação de login utilizando o CPF como identificador do usuário.                                                                     |
+| **Entrada de Produtos:**                | Funcionalidade para registrar a aquisição de novos produtos.                                                                               |
+| **Consumo de Produtos**                 | Funcionalidade para registrar a baixa de produtos do estoque por consumo interno.                                                          |
+| **Envio de Produtos entre Setores:**    | Funcionalidade para realizar a transferência de itens entre diferentes setores, debitando o estoque de um e creditando o estoque do outro. |
 
 ---
 
 ---
 
-## 📌 Regras de Negócio Importantes
+## 📌 Regras de Negócio
 
 - **Controle de estoque:** Implementar lógica básica de controle de estoque (por exemplo, impedir saída de produto se a quantidade em estoque for zero).
 - **Transferência::** Toda Entrada, Consumo ou Envio entre Setores deve gerar um registro na tabela de movimentação para rastreabilidade..
@@ -33,22 +33,21 @@ Todas as movimentações ficam registradas para rastreabilidade.
 
 ---
 
-
 # 🏗️ Arquitetura
 
 O projeto está organizado em camadas:
 
 ```text
 ┌──────────────────────────────────────────────┐
-│              WebApplication                 │ ← MVC + Web API
+│              WebApplication                  │ ← MVC + Web API
 ├──────────────────────────────────────────────┤
-│               Application                   │ ← DTOs, Services
+│               Application                    │ ← DTOs, Services
 ├──────────────────────────────────────────────┤
-│                 Domain                      │ ← Entidades, Interfaces
+│                 Domain                       │ ← Entidades, Interfaces
 ├──────────────────────────────────────────────┤
-│               Persistence                   │ ← DbContext, Repositórios
+│               Persistence                    │ ← DbContext, Repositórios
 └──────────────────────────────────────────────┘
-
+```
 ---
 
 ## 🛠️ Tecnologias e Dependências
@@ -60,14 +59,14 @@ O projeto está organizado em camadas:
 | ASP.NET Web API | 5.2.9 | API REST |
 | Entity Framework | 6.5.1 | ORM — acesso a dados |
 | SQL Server | 2022 | Banco de dados relacional |
-| AutoMapper | 10.1.1 | Mapeamento Entidade ↔ DTO |
+| AutoMapper | 9.0.0 | Mapeamento Entidade ↔ DTO |
 | Simple Injector | 5.5.0 | Container de injeção de dependência |
 | Swashbuckle | 5.6.0 | Documentação Swagger / Swagger UI |
-| Newtonsoft.Json | 13.0.3 | Serialização JSON |
+| Newtonsoft.Json | 13.0.1 | Serialização JSON |
 | Bootstrap | 5.x | Framework CSS para as Views |
 
 ---
-```
+
 
 ## ✅ Pré-requisitos
 
@@ -75,7 +74,7 @@ Antes de executar o projeto, certifique-se de ter instalado:
 
 - [**Visual Studio 2019+**](https://visualstudio.microsoft.com/) com a carga de trabalho **ASP.NET e desenvolvimento Web**
 - [**.NET Framework 4.8 Developer Pack**](https://dotnet.microsoft.com/download/dotnet-framework/net48)
-- [**SQL Server 2019+**](https://www.microsoft.com/sql-server) (local) **ou** [**Docker Desktop**](https://www.docker.com/products/docker-desktop/) para subir o banco via container
+- [**SQL Server 2019+**](https://www.microsoft.com/sql-server) (local)
 - [**Git**](https://git-scm.com/)
 
 ---
@@ -85,10 +84,10 @@ Antes de executar o projeto, certifique-se de ter instalado:
 O projeto utiliza **SQL Server** com o banco `LigaEstoqueDB`
 
 1. Conecte-se à sua instância do SQL Server (SSMS, Azure Data Studio, etc.).
-2. Execute o script `Scrip BD.sql` localizado na raiz do repositório. Ele irá:
+2. Execute o script `Script BD.sql` localizado na raiz do repositório. Ele irá:
    - Criar o banco `LigaEstoqueDB`
    - Criar as tabelas `Produto`, `Usuários,` `Setores` e `MovimentacaoEstoque`
-   - Inserir dados 
+   - Inserir dados
 3. Ajuste a connection string no arquivo `WebApplication\Web.config` se necessário:
 
 ```xml
@@ -107,7 +106,6 @@ O projeto utiliza **SQL Server** com o banco `LigaEstoqueDB`
 git clone https://github.com/danielequerino7/Sistema-Gestao-Estoque.git
 ```
 
-
 ### 2. Criar e subir o banco de dados
 
 execute o `Script DB.sql` manualmente conforme explicado na seção anterior.
@@ -123,22 +121,21 @@ PM> Update-Package -reinstall
 
 ### 4. Compilar e executar
 
-1. Defina o projeto **WebApplication** como projeto de inicialização (clique com botão direito → *Definir como Projeto de Inicialização*).
+1. Defina o projeto **WebApplication** como projeto de inicialização (clique com botão direito → _Definir como Projeto de Inicialização_).
 2. Pressione **F5** (ou **Ctrl+F5** para executar sem depuração).
 3. O IIS Express iniciará a aplicação.
 
 ### 5. Acessar o sistema
 
-| Recurso | URL |
-|---|---|
-| **Página Inicial** | `http://localhost:{porta}/` |
-
+| Recurso            | URL                          |
+| ------------------ | ---------------------------- |
+| **Página Inicial** | `https://localhost:{porta}/` |
 
 > A porta é atribuída automaticamente pelo IIS Express. Verifique a URL na barra de endereços do navegador ou nas propriedades do projeto.
 
 ## 📡 Endpoints da API
-Consulte os Endpoints 
-**Swagger (Documentação da API)** | `http://localhost:{porta}/swagger`
+
+**Swagger (Documentação da API)** | `https://localhost:{porta}/swagger`
 
 ## 📂 Estrutura de Pastas
 
@@ -150,7 +147,6 @@ Consulte os Endpoints
 │   └── Services/             # Serviços de aplicação + interfaces
 ├── Domain/
 │   ├── Entities/             # Entidades de domínio
-│   ├── Exceptions/           # Exceções de domínio
 │   └── Interfaces/           # Contratos de repositório
 ├── Persistence/
 │   ├── Context/              # DbContext (Entity Framework)
